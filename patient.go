@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"fmt"
-
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -24,16 +22,18 @@ type Patient struct {
 //Patients slices of patients
 type Patients []Patient
 
-func getAllPatients(w http.ResponseWriter, r *http.Request) {
+//GetAllPatients gets all patients
+func GetAllPatients(w http.ResponseWriter, r *http.Request) {
 	patients := Patients{
 		Patient{ID: 110, Name: "Test Pateint", Age: 22, Temperature: 37},
 		Patient{ID: 120, Name: "Test Pateint2", Age: 23, Temperature: 38},
 	}
-	fmt.Println("All Patients request")
+	// fmt.Println("All Patients request")
 	json.NewEncoder(w).Encode(patients)
 }
 
-func getSpecificPatient(w http.ResponseWriter, r *http.Request) {
+//GetSpecificPatient gets specific patient
+func GetSpecificPatient(w http.ResponseWriter, r *http.Request) {
 	patients := Patients{
 		Patient{ID: 110, Name: "Test_Pateint", Age: 22, Temperature: 37},
 		Patient{ID: 120, Name: "Test Pateint2", Age: 23, Temperature: 38},
@@ -42,7 +42,7 @@ func getSpecificPatient(w http.ResponseWriter, r *http.Request) {
 	// to extract the variables
 
 	vars := mux.Vars(r) // this will return a map with var:[userInput]
-	fmt.Println(vars)   //map[id:111] so i need the value of the id key
+	// fmt.Println(vars)  //map[id:111] so i need the value of the id key
 	key := vars["id"]
 	temp, _ := strconv.Atoi(key)
 
