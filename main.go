@@ -18,7 +18,7 @@ func newRouter() *mux.Router {
 	r.HandleFunc("/", homePage).Methods("GET")
 	r.HandleFunc("/all", getAllPatients).Methods(("GET"))
 	r.HandleFunc("/addpatient", newPatientHandler).Methods("GET")
-	r.HandleFunc("/reports", ServeHTTP).Methods("GET")
+	r.HandleFunc("/reports/{country}", GetSpecificReport).Methods("GET")
 	r.HandleFunc("/patient/{id}", getSpecificPatient).Methods("GET")
 	return r
 }

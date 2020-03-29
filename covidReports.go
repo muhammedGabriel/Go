@@ -6,8 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
+// ResponseReport struct that holds data of reports
 type ResponseReport struct {
 	Error      bool   `json:"error"`
 	StatusCode int    `json:"statusCode"`
@@ -27,8 +30,12 @@ type ResponseReport struct {
 	} `json:"data"`
 }
 
-func ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	url := "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Israel"
+// GetSpecificReport handler for get reports
+func GetSpecificReport(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	key := vars["country"]
+	url := "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=" + key
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("x-rapidapi-host", "covid-19-coronavirus-statistics.p.rapidapi.com")
 	req.Header.Add("x-rapidapi-key", "523669ef40msh869770cdf015e26p1c8d52jsn51883614dbfa")
